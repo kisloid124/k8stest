@@ -7,33 +7,33 @@ GREEN='\033[0;32m'
 NC='\033[0m'
 
 log() {
-    case $1 in
-        error)
-            LOG_LEVEL="error"
-            COLOR=$RED
-            ;;
-        notice)
-            LOG_LEVEL="notice"
-            COLOR=$GREEN
-            ;;
-    esac
+	case $1 in
+	error)
+		LOG_LEVEL="error"
+		COLOR=$RED
+		;;
+	notice)
+		LOG_LEVEL="notice"
+		COLOR=$GREEN
+		;;
+	esac
 
-    timestamp="$(date +"%Y/%m/%d %H:%M:%S")"
-    echo -e "$timestamp [$LOG_LEVEL] $0 ${COLOR}$2${NC}"
+	timestamp="$(date +"%Y/%m/%d %H:%M:%S")"
+	echo -e "$timestamp [$LOG_LEVEL] $0 ${COLOR}$2${NC}"
 }
 
 getmd5() {
-    tar --strip-components=2 -C / -cf - $DIR | md5sum | awk '{print $1}'
+	tar --strip-components=2 -C / -cf - $DIR | md5sum | awk '{print $1}'
 }
 
 if [ ! -d $DIR ]; then
-		log error "/$DIR not found"
-		exit 1
+	log error "/$DIR not found"
+	exit 1
 fi
 if ! [ -x "$(command -v nginx)" ]; then
 	log error "Nginx is not installed"
 	exit 1
-fl
+fi
 log notice "starting Nginx process..."
 nginx -g 'daemon off;' &
 
