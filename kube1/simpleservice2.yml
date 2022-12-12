@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-example
+  name: my-service
 spec:
-  type: NodePort
   ports:
-    - name: http
+    - name: app-listener-1
       port: 80
-      nodePort: 30080
-      targetPort: nginx-http
+      protocol: TCP
+      targetPort: 80
   selector:
-    app: nginx
+    app: my-app
+  type: ClusterIP
